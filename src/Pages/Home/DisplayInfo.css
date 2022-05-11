@@ -1,0 +1,12 @@
+.detail-container {
+    height: 150px;
+    width: 100%;
+    margin: 10px;
+    color: white;
+    border-radius: 14px;
+
+}
+
+.detail-container:nth-child(2) {
+    background-image: linear-gradient(to right, #3A4256, #3A4250);
+}
