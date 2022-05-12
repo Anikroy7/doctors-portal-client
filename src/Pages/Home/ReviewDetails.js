@@ -8,11 +8,11 @@ const ReviewDetails = ({ review }) => {
                 <p className='font-semibold'>{description}</p>
             </div>
 
-            <div class="mt-6 avatar flex items-center w-100 justify-evenly">
-                <div class="w-14 mt-6 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
+            <div className="mt-6  flex items-center w-100 justify-evenly">
+                <div className="w-14 rounded-full ring ring-primary">
                     <img src={image} alt="" />
                 </div>
-                <div className='mt-2'>
+                <div className=''>
                     <h3 className='font-bold'>{name}</h3>
                     <h3 className='font-bold'>{country}</h3>
                 </div>

@@ -2,7 +2,7 @@ import React from 'react';
 import '../../Pages/Home/DisplayInfo.css'
 
 const DisplayInfo = ({ detail }) => {
-    console.log(detail);
+
     const { name, image, description } = detail;
     return (
         <div className='detail-container bg-gradient-to-r from-secondary to-primary flex items-center justify-evenly'>
