@@ -8,6 +8,7 @@ import Footer from './Pages/Shared/Footer';
 import Appointment from './Pages/Home/Appointment';
 import AppointmentPage from './Pages/AppointmentPage/AppointmentPage';
 import Login from './Pages/Login/Login';
+import SignUp from './Pages/Login/SignUp';
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
         <Route path="about" element={<About />} />
         <Route path='/appointment' element={<AppointmentPage></AppointmentPage>}></Route>
         <Route path='/login' element={<Login></Login>}></Route>
+        <Route path='/signup' element={<SignUp></SignUp>}></Route>
       </Routes>
 
     </div>
