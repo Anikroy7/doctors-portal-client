@@ -1,16 +1,34 @@
 import React from 'react';
-import { useSignInWithGoogle } from 'react-firebase-hooks/auth';
+import { useSignInWithEmailAndPassword, useSignInWithGoogle } from 'react-firebase-hooks/auth';
 import auth from '../../firebase.init';
 import { useForm } from "react-hook-form";
 
 
 const Login = () => {
-    const [signInWithGoogle, user, loading, error] = useSignInWithGoogle(auth);
-    if (user) {
+    const { register, formState: { errors }, handleSubmit } = useForm();
+    const [signInWithGoogle, googleUser, googleLoading, googelError] = useSignInWithGoogle(auth);
+    const [
+        signInWithEmailAndPassword,
+        user,
+        loading,
+        error,
+    ] = useSignInWithEmailAndPassword(auth);
+    let signInError;
+    if (user || googleUser) {
         console.log(user);
     }
-    const { register, formState: { errors }, handleSubmit } = useForm();
-    const onSubmit = data => console.log(data);
+    if (loading || googleLoading) {
+        return <button class="btn loading">loading</button>
+    }
+    if (error || googelError) {
+        signInError = <p>{error?.message || googelError?.message}</p>
+    }
+    const onSubmit = data => {
+        console.log(data)
+        const email = data.email;
+        const password = data.password;
+        signInWithEmailAndPassword(email, password)
+    };
     return (
         <div className='flex justify-center items-center h-screen'>
             <div className="card w-100 bg-base-100 shadow-xl">
@@ -32,7 +50,7 @@ const Login = () => {
                                     },
                                     pattern: {
                                         value: /[a-z0-9]+@[a-z]+\.[a-z]{2,3}/,
-                                        message: 'error message'
+                                        message: 'Please give valid email adress'
                                     }
                                 })}
                             />
@@ -66,6 +84,7 @@ const Login = () => {
                                 {errors.password?.type === 'minLength' && <span class="label-text-alt text-red-400">{errors.password?.message}</span>}
 
                             </label>
+                            {signInError}
                         </div>
                         <input />
 
