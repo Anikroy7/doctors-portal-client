@@ -1,4 +1,6 @@
-import logo from './logo.svg';
+
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import './App.css';
 import Navbar from './Pages/Shared/Navbar/Navbar';
 import { Route, Routes } from 'react-router-dom';
@@ -27,7 +29,7 @@ function App() {
         <Route path='/login' element={<Login></Login>}></Route>
         <Route path='/signup' element={<SignUp></SignUp>}></Route>
       </Routes>
-
+      <ToastContainer />
     </div>
   );
 }

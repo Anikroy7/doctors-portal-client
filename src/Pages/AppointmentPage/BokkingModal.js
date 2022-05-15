@@ -1,12 +1,44 @@
 import React from 'react';
 import { format } from 'date-fns';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import auth from '../../firebase.init';
+import { success } from 'daisyui/src/colors';
+import { toast } from 'react-toastify';
 
 const BokkingModal = ({ treatment, date, setTreatment }) => {
-    const { name, slots } = treatment;
+    const { name, slots, _id } = treatment;
+    const [user] = useAuthState(auth);
     const handelFromSubmit = event => {
         event.preventDefault()
         const slot = event.target.slot.value;
-        console.log(slot);
+        const formattedDate = format(date, 'PP')
+        const booking = {
+            treatmentId: _id,
+            treatment: name,
+            patient: user.displayName,
+            patientEmail: user.email,
+            slot,
+            date: formattedDate
+
+        }
+        fetch('http://localhost:5000/service', {
+            method: 'POST',
+            headers: {
+                'Content-type': 'application/json',
+            },
+            body: JSON.stringify(booking),
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data);
+                if (data.success) {
+                    toast(`Your appoint is booked for ${formattedDate} to ${slot}`)
+                }
+                else (
+                    toast.error(`Your appoint is alreay booked for ${formattedDate} to ${slot}`)
+                )
+            })
+        // for close modal
         setTreatment(null)
     }
     return (
@@ -14,20 +46,25 @@ const BokkingModal = ({ treatment, date, setTreatment }) => {
             <input type="checkbox" id="booking-modal" className="modal-toggle" />
             <div className="modal modal-bottom sm:modal-middle">
                 <div className="modal-box">
-                    <label for="booking-modal" className="btn btn-sm btn-circle absolute right-2 top-2">✕</label>
-                    <h3 className="font-bold text-lg">{name}</h3>
+                    <label htmlFor="booking-modal" className="btn btn-sm btn-circle absolute right-2 top-2">✕</label>
+                    <h3 className="font-bold text-lg text-secondary">Booking For:
+                        <span> {name}</span></h3>
                     <form onSubmit={handelFromSubmit}>
 
                         <input type="text" disabled value={format(date, 'PP')} placeholder="Type here" className="input input-bordered input-accent w-full max-w-xs mt-3" />
                         <select name='slot' className="mt-3 select select-bordered w-full max-w-xs">
                             {
-                                slots.map(slot => <option value={slot}>{slot}</option>)
+                                slots.map((slot, i) => <option
+                                    key={i}
+                                    value={slot}
+                                >{slot}</option>)
                             }
 
                         </select>
-                        <input type="text" placeholder="Full name" className="input input-bordered input-accent w-full max-w-xs mt-3" />
+                        <input type="text"
+                            value={user?.displayName} disabled className="input input-bordered input-accent w-full max-w-xs mt-3" />
+                        <input type="text" disabled value={user?.email} className="input input-bordered input-accent w-full max-w-xs mt-3" />
                         <input type="text" placeholder="Phone number" className="input input-bordered input-accent w-full max-w-xs mt-3" />
-                        <input type="text" placeholder="Your email" className="input input-bordered input-accent w-full max-w-xs mt-3" />
                         <input type="submit" className="input input-bordered input-accent w-full max-w-xs mt-3 btn btn-primary" />
                     </form>
                 </div>
