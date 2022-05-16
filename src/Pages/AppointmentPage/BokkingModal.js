@@ -5,7 +5,7 @@ import auth from '../../firebase.init';
 import { success } from 'daisyui/src/colors';
 import { toast } from 'react-toastify';
 
-const BokkingModal = ({ treatment, date, setTreatment }) => {
+const BokkingModal = ({ treatment, date, setTreatment, refetch }) => {
     const { name, slots, _id } = treatment;
     const [user] = useAuthState(auth);
     const handelFromSubmit = event => {
@@ -13,14 +13,15 @@ const BokkingModal = ({ treatment, date, setTreatment }) => {
         const slot = event.target.slot.value;
         const formattedDate = format(date, 'PP')
         const booking = {
-            treatmentId: _id,
-            treatment: name,
-            patient: user.displayName,
-            patientEmail: user.email,
+            treatementId: _id,
+            treatement: name,
+            patient: user.email,
+            patientName: user.displayName,
             slot,
             date: formattedDate
 
         }
+
         fetch('http://localhost:5000/service', {
             method: 'POST',
             headers: {
@@ -32,12 +33,16 @@ const BokkingModal = ({ treatment, date, setTreatment }) => {
             .then(data => {
                 console.log(data);
                 if (data.success) {
-                    toast(`Your appoint is booked for ${formattedDate} to ${slot}`)
+                    toast(`Your appoint is successfully booked for ${formattedDate} to ${slot}`)
                 }
-                else (
+                else {
                     toast.error(`Your appoint is alreay booked for ${formattedDate} to ${slot}`)
-                )
+                }
+
             })
+        // for refetch 
+        refetch()
+
         // for close modal
         setTreatment(null)
     }
