@@ -2,7 +2,6 @@ import React from 'react';
 import { format } from 'date-fns';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import auth from '../../firebase.init';
-import { success } from 'daisyui/src/colors';
 import { toast } from 'react-toastify';
 
 const BokkingModal = ({ treatment, date, setTreatment, refetch }) => {
@@ -22,7 +21,7 @@ const BokkingModal = ({ treatment, date, setTreatment, refetch }) => {
 
         }
 
-        fetch('http://localhost:5000/service', {
+        fetch('http://localhost:5000/booking', {
             method: 'POST',
             headers: {
                 'Content-type': 'application/json',
