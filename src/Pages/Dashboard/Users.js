@@ -4,7 +4,7 @@ import Loading from '../Shared/Loading';
 import UserDetails from './UserDetails';
 
 const Users = () => {
-    const { data: users, isLoading } = useQuery('users', () => fetch('http://localhost:5000/users', {
+    const { data: users, isLoading, refetch } = useQuery('users', () => fetch('http://localhost:5000/users', {
         method: 'GET',
         headers: {
             authorization: `bearer ${localStorage.getItem('access-token')}`
@@ -33,7 +33,7 @@ const Users = () => {
 
                         {
                             users.map(user => <UserDetails
-
+                                refetch={refetch}
                                 key={user._id}
                                 user={user}
                             ></UserDetails>)
