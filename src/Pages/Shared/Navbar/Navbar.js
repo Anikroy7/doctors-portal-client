@@ -9,6 +9,7 @@ const Navbar = () => {
 
     const handelLogout = () => {
         signOut(auth)
+        localStorage.removeItem('access-token')
     }
     const menuItems = <>
         <li><Link to={'/home'}>Home</Link></li>
@@ -40,7 +41,7 @@ const Navbar = () => {
                         {menuItems}
                     </ul>
                 </div>
-                <span className="btn btn-ghost normal-case text-xl">Doctors Portal</span>
+                <Link to={'/'} className="ml-12 normal-case text-2xl">Doctors Portal</Link>
             </div>
             <div className="navbar-center hidden lg:flex">
                 <ul className="menu menu-horizontal p-0">

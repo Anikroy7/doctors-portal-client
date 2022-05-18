@@ -21,7 +21,7 @@ const SignUp = () => {
     let signInError;
     if (token) {
         navigate('/appointment')
-        localStorage.setItem('access-secret-token', token)
+
     }
     if (loading || googleLoading || updating) {
         return <Loading></Loading>

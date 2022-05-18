@@ -1,17 +1,33 @@
+import { signOut } from 'firebase/auth';
 import React, { useEffect, useState } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import auth from '../../firebase.init';
 
 const MyAppointment = () => {
     const [appointments, setAppointments] = useState([]);
-
+    const navigate = useNavigate();
     const [user] = useAuthState(auth);
 
     useEffect(() => {
-        fetch(`http://localhost:5000/booking?patient=${user?.email}`)
-            .then(res => res.json())
+        fetch(`http://localhost:5000/booking?patient=${user?.email}`, {
+            method: 'GET',
+            headers: {
+                'authorization': `bearer ${localStorage.getItem('access-token')}`
+            }
+        })
+            .then(res => {
+                console.log(res);
+                if (res.status === 401 || res.status === 403) {
+                    navigate('/')
+                    signOut(auth);
+                    toast.error('You are a invalid user!!!')
+                }
+                return res.json()
+            })
             .then(data => setAppointments(data))
-    }, [user])
+    }, [user, navigate])
     console.log(appointments);
     return (
         <div>
