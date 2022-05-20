@@ -1,9 +1,11 @@
 import React from 'react';
 import { useQuery } from 'react-query';
 import Loading from '../Shared/Loading';
+
 import UserDetails from './UserDetails';
 
 const Users = () => {
+
     const { data: users, isLoading, refetch } = useQuery('users', () => fetch('http://localhost:5000/users', {
         method: 'GET',
         headers: {
@@ -32,10 +34,12 @@ const Users = () => {
                     <tbody>
 
                         {
-                            users.map(user => <UserDetails
+                            users.map((user, i) => <UserDetails
                                 refetch={refetch}
                                 key={user._id}
                                 user={user}
+                                i={i}
+
                             ></UserDetails>)
                         }
 
@@ -43,7 +47,7 @@ const Users = () => {
                 </table>
             </div>
 
-        </div>
+        </div >
     );
 };
 

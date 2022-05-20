@@ -1,7 +1,7 @@
 import React from 'react';
 import { toast } from 'react-toastify';
 
-const UserDetails = ({ user, refetch }) => {
+const UserDetails = ({ user, refetch, i }) => {
 
     const { email, role } = user;
 
@@ -28,15 +28,16 @@ const UserDetails = ({ user, refetch }) => {
     }
     return (
         <tr>
-            <th>1</th>
+            <th>{i + 1}</th>
             <td>{email}</td>
             <td>
                 {
 
-                    role !== 'admin' && <button onClick={makeAdmin} class="btn btn-xs">Make admin</button>
+                    role !== 'admin' && <button onClick={makeAdmin} class="btn btn-xs btn-secondary">Make admin</button>
                 }
             </td>
-            <td><button className='btn btn-xs'>Delete</button></td>
+            <td><button className='btn btn-xs btn-outline btn-error'>Delete</button></td>
+
         </tr>
     );
 };
