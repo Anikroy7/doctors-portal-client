@@ -1,5 +1,5 @@
 import React from 'react';
-import { toast } from 'react-toastify';
+
 
 const DoctorDetails = ({ doctor, index, setDeleteDoctor }) => {
     const { name, speciality, img } = doctor;
@@ -16,7 +16,7 @@ const DoctorDetails = ({ doctor, index, setDeleteDoctor }) => {
             <td>{speciality}</td>
             <td>
 
-                <label onClick={() => setDeleteDoctor(doctor)} for="deleteConfirmModal" class="btn  btn-error btn-xs">open modal</label>
+                <label onClick={() => setDeleteDoctor(doctor)} for="deleteConfirmModal" class="btn  btn-error btn-xs">Delete</label>
             </td>
         </tr>
     );

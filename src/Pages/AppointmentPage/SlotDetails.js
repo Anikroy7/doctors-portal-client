@@ -2,11 +2,11 @@ import React from 'react';
 
 const SlotDetails = ({ service, setTreatment }) => {
     // console.log(service);
-    const { name, slots } = service;
+    const { name, slots, price } = service;
     return (
-        <div className="card w-100 bg-base-100 shadow-xl">
-            <div className="card-body">
-                <h2 className="card-title text-secondary">{name}</h2>
+        <div className="card  w-100 bg-base-100 shadow-xl">
+            <div className="card-body text-center">
+                <h2 className="text-center text-xl text-secondary">{name}</h2>
                 <p>
                     {
                         slots.length ?
@@ -16,7 +16,8 @@ const SlotDetails = ({ service, setTreatment }) => {
                     }
                 </p>
                 <p>{slots.length} {slots.length > 1 ? 'spaces' : 'space'} Available</p>
-                <div className="card-actions ">
+                <p><small>Price:$ {price}</small></p>
+                <div className="text-center">
                     <label
                         onClick={() => setTreatment(service)}
                         disabled={slots.length === 0}
