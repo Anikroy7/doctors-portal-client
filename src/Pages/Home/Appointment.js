@@ -9,9 +9,16 @@ const Appointment = () => {
             backgroundImage: `url(${bg})`
         }}>
             <div className='flex-1 hidden lg:block'>
-                <img className=' mt-[-80px]' src={doctor} alt="" />
+                <img className=' mt-[-80px]' src={doctor}
+                    data-aos="fade-up"
+                    data-aos-offset="200"
+                    data-aos-delay="50"
+                    data-aos-duration="1000" alt="" />
             </div>
-            <div className='px-12 w-100 flex-1'>
+            <div data-aos="fade-right"
+                data-aos-offset="200"
+                data-aos-delay="50"
+                data-aos-duration="1000" className='px-12 w-100 flex-1'>
                 <h5 className='text-secondary text-xl font-bold mb-3'>Appointment</h5>
 
                 <h1 className='mb-3 text-4xl'>Make An Appointment Today</h1>

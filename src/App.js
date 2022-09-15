@@ -2,6 +2,8 @@
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import './App.css';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 import Navbar from './Pages/Shared/Navbar/Navbar';
 import { Route, Routes } from 'react-router-dom';
 import Home from './Pages/Home/Home';
@@ -19,10 +21,20 @@ import RequireAdmin from './Pages/Login/RequireAdmin';
 import AddDcotor from './Pages/Dashboard/AddDcotor';
 import ManageDoctors from './Pages/Dashboard/ManageDoctors';
 import Payment from './Pages/Dashboard/Payment';
+import { useEffect } from 'react';
+
+
+
 
 function App() {
+  useEffect(() => {
+    AOS.init();
+  }, []);
+
+
   return (
     <div>
+
       <Navbar></Navbar>
       <Routes>
         <Route path="/" element={<Home />} />
@@ -67,6 +79,7 @@ function App() {
         <Route path='/signup' element={<SignUp></SignUp>}></Route>
       </Routes>
       <ToastContainer />
+
     </div>
   );
 }
